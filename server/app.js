@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-const port =process.env.PORT;
+const port = process.env.PORT || 5500;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,11 +34,11 @@ app.use("/api/answers", authMiddleware, answerRoutes);
 async function start() {
   try {
     // Test database connection
-await dbCon.execute("select 'test'");
+    await dbCon.execute("select 'test'");
     //create table if not exists
     const createTable = require("./migrate/createTable");
     await createTable();
-     } catch (error) {
+  } catch (error) {
     console.error(error.message);
     process.exit(1);
   }
